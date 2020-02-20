@@ -5,6 +5,9 @@ Docker and Docker Compose installations.
 The [GitHub Actions](.github/workflows/dockerimage.yml) matrix contains a list of the [OpenJDK
 tags] that are built as part of this build.
 
+## Release notes
+* [Docker](https://docs.docker.com/engine/release-notes/)
+* [Docker Compose](https://docs.docker.com/release-notes/docker-compose/)
 
 [build farm]: https://en.wikipedia.org/wiki/Compile_farm
 [official OpenJDK]: https://hub.docker.com/_/openjdk
