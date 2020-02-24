@@ -1,6 +1,14 @@
 name: Docker Image CI
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
 
@@ -16,7 +24,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --build-arg JDK_VERSION=${{ matrix.jdk }} --tag chmodas/openjdk-docker-compose:${{ matrix.jdk }}
     - name: Publish the Docker image
-      if: github.event.pull_request.merged == true
+      if: github.event_name != 'pull_request'
       run: |
         echo ${{ secrets.DOCKER_HUB }} | docker login --username ${{ secrets.DOCKER_UID }} --password-stdin
         docker push chmodas/openjdk-docker-compose:${{ matrix.jdk }}
