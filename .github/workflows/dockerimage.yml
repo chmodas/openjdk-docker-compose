@@ -16,7 +16,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --build-arg JDK_VERSION=${{ matrix.jdk }} --tag chmodas/openjdk-docker-compose:${{ matrix.jdk }}
     - name: Publish the Docker image
-      if: github.ref == 'master'
+      if: github.event.pull_request.merged == true
       run: |
         echo ${{ secrets.DOCKER_HUB }} | docker login --username ${{ secrets.DOCKER_UID }} --password-stdin
         docker push chmodas/openjdk-docker-compose:${{ matrix.jdk }}
