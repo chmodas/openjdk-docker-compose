@@ -15,9 +15,9 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: docker build . --file Dockerfile --build-arg JDK_VERSION=${{ matrix.jdk }} --tag chmodas/openjdk-docker-compose:${{ matrix.jdk }}
-    - name: Login to Docker Hub
-      run: echo ${{ secrets.DOCKER_HUB }} | docker login --username ${{ secrets.DOCKER_UID }} --password-stdin
     - name: Publish the Docker image
-      run: docker push chmodas/openjdk-docker-compose:${{ matrix.jdk }}
-    - name: Logout from Docker Hub
-      run: docker logout
+      if: github.ref == 'master'
+      run: |
+        echo ${{ secrets.DOCKER_HUB }} | docker login --username ${{ secrets.DOCKER_UID }} --password-stdin
+        docker push chmodas/openjdk-docker-compose:${{ matrix.jdk }}
+        docker logout
