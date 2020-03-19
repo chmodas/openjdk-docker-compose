@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        jdk: ["11.0.6", "13.0.2", "14"]
+        jdk: ["11", "13", "14"]
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
