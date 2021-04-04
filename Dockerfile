@@ -11,7 +11,7 @@ ARG DOCKER_COMPOSE_VERSION
 ENV DOCKER_VERSION ${DOCKER_VERSION:-19.03.15}
 ENV DOCKER_COMPOSE_VERSION ${DOCKER_COMPOSE_VERSION:-1.28.4}
 
-#Install build stuff
+# Install build stuff
 RUN set -eux; \
   apt-get update; \
   apt-get install -y --no-install-recommends curl
@@ -27,6 +27,10 @@ RUN set -eux; \
   curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose; \
   chmod 755 /usr/bin/docker-compose; \
   docker-compose --version
+
+# Install GnuPG (for signing Maven Central artifacts)
+RUN set -eux; \
+  apt-get install -y --no-install-recommends gnupg
 
 # Clean up
 RUN set -eux; \
